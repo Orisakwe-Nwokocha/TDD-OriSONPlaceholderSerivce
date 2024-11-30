@@ -2,15 +2,13 @@ package dev.orisha.orison.post;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/posts")
-class PostController {
+public class PostController {
 
     private final PostRepository postRepository;
 
@@ -19,31 +17,31 @@ class PostController {
     }
 
     @GetMapping("")
-    List<Post> findAll() {
+    public List<Post> findAll() {
         return postRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    Optional<Post> findById(@PathVariable Integer id) {
-        return Optional.ofNullable(postRepository.findById(id)
-                .orElseThrow(PostNotFoundException::new));
+    public Post findById(@PathVariable Integer id) {
+        return postRepository.findById(id)
+                .orElseThrow(PostNotFoundException::new);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    Post create(@RequestBody @Valid Post post) {
+    public Post create(@RequestBody @Valid Post post) {
         return postRepository.save(post);
     }
 
     @PutMapping("/{id}")
-    Post update(@PathVariable Integer id, @RequestBody @Validated Post post) {
-        findById(id);
+    public Post update(@PathVariable Integer id, @RequestBody @Valid Post post) {
+        Post existingPost = findById(id);
         Post updatedPost = new Post(
-                id,
-                post.userId(),
+                existingPost.id(),
+                existingPost.userId(),
                 post.title(),
                 post.body(),
-                post.version()
+                existingPost.version()
         );
         return postRepository.save(updatedPost);
     }
