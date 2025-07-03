@@ -1,6 +1,6 @@
 package utils;
 
-import dev.orisha.orison.post.Post;
+import dev.orisha.orison.post.data.model.Post;
 import org.jetbrains.annotations.NotNull;
 
 public class TestUtil {

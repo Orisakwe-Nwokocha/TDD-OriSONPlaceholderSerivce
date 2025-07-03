@@ -1,5 +1,9 @@
 package dev.orisha.orison.post;
 
+import dev.orisha.orison.post.controller.PostController;
+import dev.orisha.orison.post.exception.ResourceNotFoundException;
+import dev.orisha.orison.post.data.model.Post;
+import dev.orisha.orison.post.data.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +88,7 @@ class PostControllerTest {
 
     @Test
     void shouldNotFindPostWhenGivenInvalidIdTest() throws Exception {
-        when(postRepository.findById(999)).thenThrow(PostNotFoundException.class);
+        when(postRepository.findById(999)).thenThrow(ResourceNotFoundException.class);
         when(postRepository.findById(1)).thenReturn(Optional.of(posts.getFirst()));
 
         mockMvc.perform(get("/api/posts/{id}", 999))

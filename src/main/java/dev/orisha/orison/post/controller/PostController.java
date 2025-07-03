@@ -1,5 +1,8 @@
-package dev.orisha.orison.post;
+package dev.orisha.orison.post.controller;
 
+import dev.orisha.orison.post.data.model.Post;
+import dev.orisha.orison.post.exception.ResourceNotFoundException;
+import dev.orisha.orison.post.data.repository.PostRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +15,7 @@ public class PostController {
 
     private final PostRepository postRepository;
 
-    PostController(PostRepository postRepository) {
+    public PostController(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
@@ -24,7 +27,7 @@ public class PostController {
     @GetMapping("/{id}")
     public Post findById(@PathVariable Integer id) {
         return postRepository.findById(id)
-                .orElseThrow(PostNotFoundException::new);
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

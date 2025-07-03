@@ -1,9 +1,13 @@
 package dev.orisha.orison.post;
 
+import dev.orisha.orison.post.data.model.Post;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,6 +16,21 @@ public class PostJsonTest {
 
     @Autowired
     private JacksonTester<Post> jacksonTester;
+
+    public static void main(String[] args) {
+//        String regex = "([a-z0-9]+\\.)?[a-z0-9]+@\\S+(\\.[a-z]{2,})$";
+        String regex = "([a-z0-9]+\\.)?[a-z0-9]+@[a-z0-9.-]+(\\.[a-z]{2,})";
+
+
+//        String email = "o.nwokocha@native.semicolon.africa";
+        String email = "c9.hg@example.comabca";
+//        String email = "user123@subdomain.domain.com";
+        boolean isValidEmail = email.matches(regex);
+        Matcher matcher = Pattern.compile(regex).matcher(email);
+        System.out.println(STR."isValidEmail: \{isValidEmail}");
+        System.out.println(STR."matcher isValidEmail: \{matcher.find()}");
+
+    }
 
 
     @Test

@@ -1,6 +1,8 @@
-package dev.orisha.orison.post;
+package dev.orisha.orison.post.initializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.orisha.orison.post.data.model.Post;
+import dev.orisha.orison.post.data.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

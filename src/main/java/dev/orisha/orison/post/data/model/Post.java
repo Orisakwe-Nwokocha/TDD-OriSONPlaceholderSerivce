@@ -1,4 +1,4 @@
-package dev.orisha.orison.post;
+package dev.orisha.orison.post.data.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;

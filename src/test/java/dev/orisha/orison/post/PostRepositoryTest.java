@@ -1,5 +1,7 @@
 package dev.orisha.orison.post;
 
+import dev.orisha.orison.post.data.model.Post;
+import dev.orisha.orison.post.data.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
