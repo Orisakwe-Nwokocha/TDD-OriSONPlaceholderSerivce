@@ -3,28 +3,39 @@ package dev.orisha.orison.post.controller;
 import dev.orisha.orison.post.exception.ResourceNotFoundException;
 import dev.orisha.orison.post.data.model.User;
 import dev.orisha.orison.post.data.repository.UserRepository;
+import dev.orisha.orison.post.service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.SecureRandom;
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final UserRepository userRepository;
+    private final UserService userService;
     private final ModelMapper modelMapper;
-
-    public UserController(UserRepository userRepository, ModelMapper modelMapper) {
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-    }
+    private final SecureRandom secureRandom = new SecureRandom();
 
     @GetMapping("")
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Page<User> findAll(Pageable pageable) {
+        boolean flag = secureRandom.nextBoolean();
+        if (flag) {
+            log.info("Finding all users with userRepository");
+            return this.userRepository.findAll(pageable);
+        } else {
+            log.info("Finding all users with userService");
+            return this.userService.findAll(pageable);
+        }
     }
 
     @GetMapping("/{id}")
